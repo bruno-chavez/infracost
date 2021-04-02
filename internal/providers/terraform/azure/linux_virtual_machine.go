@@ -8,7 +8,6 @@ import (
 	"github.com/shopspring/decimal"
 )
 
-// todo: add devtest consumption
 func GetAzureRMLinuxVirtualMachineRegistryItem() *schema.RegistryItem {
 	return &schema.RegistryItem{
 		Name:  "azurerm_linux_virtual_machine",
@@ -44,7 +43,7 @@ func linuxVirtualMachineCostComponent(d *schema.ResourceData) []*schema.CostComp
 	costComponents := make([]*schema.CostComponent, 0)
 
 	costComponents = append(costComponents, &schema.CostComponent{
-		Name:           fmt.Sprintf("(%s, %s)", purchaseOption, sku),
+		Name:           fmt.Sprintf("Instance usage (%s, %s)", purchaseOption, sku),
 		Unit:           "hours",
 		UnitMultiplier: 1,
 		HourlyQuantity: decimalPtr(decimal.NewFromInt(1)),
