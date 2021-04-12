@@ -15,9 +15,10 @@ process_args () {
   terraform_plan_flags=${2:-$terraform_plan_flags}
   terraform_workspace=${3:-$terraform_workspace}
   usage_file=${4:-$usage_file}
-  config_file=${5:-$config_file}
-  percentage_threshold=${6:-$percentage_threshold}
-  post_condition=${7:-$post_condition}
+  sync_usage_file=${5:-$sync_usage_file}
+  config_file=${6:-$config_file}
+  percentage_threshold=${7:-$percentage_threshold}
+  post_condition=${8:-$post_condition}
 
   # Handle deprecated var names
   path=${path:-$tfjson}
@@ -77,6 +78,9 @@ build_breakdown_cmd () {
   fi
   if [ ! -z "$usage_file" ]; then
     breakdown_cmd="$breakdown_cmd --usage-file $usage_file"
+  fi
+  if [ ! -z "$usage_file" ] && [ ! -z "$sync_usage_file" ]; then
+    breakdown_cmd="$breakdown_cmd --sync-usage-file"
   fi
   if [ ! -z "$config_file" ]; then
     breakdown_cmd="$breakdown_cmd --config-file $config_file"
